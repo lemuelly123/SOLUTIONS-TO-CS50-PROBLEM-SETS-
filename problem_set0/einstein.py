@@ -4,11 +4,11 @@ def einstein_formula(mass):
 def main():
     user_input = input("Enter mass ")
     try:
-        int(user_input)
+        user_input = int(user_input)
     except ValueError:
         print(f"Expected number for mass instead got {user_input!r}")
     result = einstein_formula(user_input)
-    print(result)
+    print(f"{result}m/s^2")
 
 if __name__ == "__main__":
     main()
