@@ -17,7 +17,10 @@ def coke_machine():
 
 
 def main():
-    coke = coke_machine()
+    try:
+        coke = coke_machine()
+    except ValueError:
+        print(f"Enter number for coin")
 
 
 if __name__ == "__main__":
