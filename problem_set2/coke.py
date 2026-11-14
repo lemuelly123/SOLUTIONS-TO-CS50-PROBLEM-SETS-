@@ -20,7 +20,7 @@ def main():
     try:
         coke = coke_machine()
     except ValueError:
-        print(f"Enter number for coin")
+        print(f"Enter only numbers for coin")
 
 
 if __name__ == "__main__":
