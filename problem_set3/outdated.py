@@ -27,6 +27,8 @@ def valid_day_month_year(value, timestamp):
             raise ValueError(f"{timestamp} cannot exceed {time[timestamp]}")
     elif timestamp == "year":
         return value
+    else:
+        raise ValueError(f"Invalid value for {value}")
     return value
 
 
