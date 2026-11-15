@@ -15,11 +15,21 @@ months = [
 MAX_DAYS = 31
 MAX_MONTH = 12
 
-def valid_parameter(value, timestamp):
+def valid_day_month_year(value, timestamp):
+    time = {"day":MAX_DAYS, "month":MAX_MONTH}
     value = value.strip()
     if not value.isdigit():
             raise ValueError(f"Expected number for {timestamp} but got {value!r} instead")
-    return int(value)
+    value = int(value)
+    if timestamp in ["day", "month"]:
+        if value > time[timestamp]:
+            raise ValueError(f"{timestamp} cannot exceed {time[timestamp]}")
+        if value < 1:
+            raise ValueError(f"{timestamp} cannot be negative")
+    elif timestamp == "year":
+        return value
+    return value
+ 
 
 def valid_month(month):
     month = month.strip().title()
@@ -30,17 +40,17 @@ def valid_month(month):
 def get_date_from_user(date):
     if "/" in date:
             day, month, year = date.split("/")
-            d = valid_parameter(day, "day")
-            m = valid_parameter(month, "month")
-            y = valid_parameter(year, "year")
+            d = valid_day_month_year(day, "day")
+            m = valid_day_month_year(month, "month")
+            y = valid_day_month_year(year, "year")
             return f"{y}-{m}-{d}"
     elif "," in date:
         month_index = 0
         month_day, year = date.split(",")
         month, day = month_day.split(" ")
         m = valid_month(month)
-        d = valid_parameter(day, "day")
-        y = valid_parameter(year, "month")
+        d = valid_day_month_year(day, "day")
+        y = valid_day_month_year(year, "month")
         for i in range(len(months)):
               if months[i] == m:
                 month_index = i + 1
