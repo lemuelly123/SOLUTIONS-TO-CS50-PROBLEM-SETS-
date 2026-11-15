@@ -15,6 +15,10 @@ def guage(user):
         return f"Expected integer but got {x!r}: {type(y)} instead"
     if x < 0 or y <= 0 or x > y:
         raise ValueError("Invalid parameter provided")
+    if x == 0:
+        return f"E"
+    elif x == y:
+        return f"F"
     return f"{round((x / y) * AVAILABLE_FUEL)}%"
 
 
