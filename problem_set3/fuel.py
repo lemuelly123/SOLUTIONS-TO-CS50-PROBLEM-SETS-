@@ -13,9 +13,11 @@ def guage(user):
         y = int(y)
     except ValueError:
         return f"Expected integer but got {x!r}: {type(y)} instead"
-    if x < 0 or y <= 0 or x > y:
+    if y == 0:
+        raise ZeroDivisionError("Error: cannot divide by zero")
+    elif x < 0 or x > y:
         raise ValueError("Invalid parameter provided")
-    if x == 0:
+    elif x == 0:
         return f"E"
     elif x == y:
         return f"F"
