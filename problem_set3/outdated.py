@@ -15,11 +15,12 @@ months = [
 MAX_DAYS = 31
 MAX_MONTH = 12
 
+
 def valid_day_month_year(value, timestamp):
-    time = {"day":MAX_DAYS, "month":MAX_MONTH}
+    time = {"day": MAX_DAYS, "month": MAX_MONTH}
     value = value.strip()
     if not value.isdigit():
-            raise ValueError(f"Expected number for {timestamp} but got {value!r} instead")
+        raise ValueError(f"Expected number for {timestamp} but got {value!r} instead")
     value = int(value)
     if timestamp in ["day", "month"]:
         if value > time[timestamp]:
@@ -27,7 +28,7 @@ def valid_day_month_year(value, timestamp):
     elif timestamp == "year":
         return value
     return value
- 
+
 
 def valid_month(month):
     month = month.strip().title()
@@ -35,13 +36,14 @@ def valid_month(month):
         raise ValueError("Invalid month")
     return month
 
+
 def get_date_from_user(date):
     if "/" in date:
-            day, month, year = date.split("/")
-            d = valid_day_month_year(day, "day")
-            m = valid_day_month_year(month, "month")
-            y = valid_day_month_year(year, "year")
-            return f"{y}-{m}-{d}"
+        day, month, year = date.split("/")
+        d = valid_day_month_year(day, "day")
+        m = valid_day_month_year(month, "month")
+        y = valid_day_month_year(year, "year")
+        return f"{y}-{m}-{d}"
     elif "," in date:
         month_index = 0
         month_day, year = date.split(",")
@@ -50,22 +52,27 @@ def get_date_from_user(date):
         d = valid_day_month_year(day, "day")
         y = valid_day_month_year(year, "month")
         for i in range(len(months)):
-              if months[i] == m:
+            if months[i] == m:
                 month_index = i + 1
         return f"{y}-{month_index}-{d}"
     else:
-         raise ValueError(f"Invalid date format expected [m d, y] or [dd/mm/yyyy] but got {date!r} instead")
-                    
+        raise ValueError(
+            f"Invalid date format expected [m d, y] or [dd/mm/yyyy] but got {date!r} instead"
+        )
 
+
+# user format in either Month day, year or
+# DD/MM/YYYY
+# ouput in YYYY-MM-DD
 def main():
     user_date = input("Date: ").strip()
-    # user format in either Month day, year or 
-    # DD/MM/YYYY
-    # ouput in YYYY-MM-DD
+
     try:
         date = get_date_from_user(user_date)
         print(date)
     except ValueError as v:
-         print(v)
+        print(v)
+
+
 if __name__ == "__main__":
     main()
