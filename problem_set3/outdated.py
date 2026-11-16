@@ -25,6 +25,8 @@ def valid_day_month_year(value, timestamp):
     if timestamp in ["day", "month"]:
         if value > time[timestamp]:
             raise ValueError(f"{timestamp} cannot exceed {time[timestamp]}")
+        elif value == 0:
+           raise ValueError(f"{timestamp} cannot be {value!r}") 
     elif timestamp == "year":
         return value
     else:
@@ -45,7 +47,7 @@ def get_date_from_user(date):
         d = valid_day_month_year(day, "day")
         m = valid_day_month_year(month, "month")
         y = valid_day_month_year(year, "year")
-        return f"{y}-{m}-{d}"
+        return f"{y}-{m:02}-{d:02}"
     elif "," in date:
         month_index = 0
         month_day, year = date.split(",")
@@ -56,7 +58,7 @@ def get_date_from_user(date):
         for i in range(len(months)):
             if months[i] == m:
                 month_index = i + 1
-        return f"{y}-{month_index}-{d}"
+        return f"{y}-{month_index:02}-{d:02}"
     else:
         raise ValueError(
             f"Invalid date format expected [m d, y] or [dd/mm/yyyy] but got {date!r} instead"
