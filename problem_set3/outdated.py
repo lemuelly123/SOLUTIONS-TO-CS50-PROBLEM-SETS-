@@ -29,16 +29,7 @@ def valid_day_month_year(value, timestamp):
            raise ValueError(f"{timestamp} cannot be {value!r}") 
     elif timestamp == "year":
         return value
-    else:
-        raise ValueError(f"Invalid value for {value}")
     return value
-
-
-def valid_month(month):
-    month = month.strip().title()
-    if month not in months:
-        raise ValueError("Invalid month")
-    return month
 
 
 def get_date_from_user(date):
@@ -52,11 +43,13 @@ def get_date_from_user(date):
         month_index = 0
         month_day, year = date.split(",")
         month, day = month_day.split(" ")
-        m = valid_month(month)
+        month = month.strip().title()
+        if month not in months:
+            raise ValueError("Invalid month")
         d = valid_day_month_year(day, "day")
-        y = valid_day_month_year(year, "month")
+        y = valid_day_month_year(year, "year")
         for i in range(len(months)):
-            if months[i] == m:
+            if months[i] == month:
                 month_index = i + 1
         return f"{y}-{month_index:02}-{d:02}"
     else:
