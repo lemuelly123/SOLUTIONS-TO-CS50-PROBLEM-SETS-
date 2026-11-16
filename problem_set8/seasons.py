@@ -2,38 +2,38 @@
 # the entire minutes you have beeen alive assuming you start at midnight
 # the day you were born
 # user enter date formats as YYYY-MM-DD
-import re, sys
-from datetime import date
+import re, sys, inflect
+from datetime import datetime
 
 
-def convert_to_int(value, timestamp):
-    if not isinstance(value, str):
-        sys.exit(f"Invalid type for {timestamp}")
+def convert_to_int(value):
     value = value.strip()
     return int(value)
 
-
-def get_minutes_diff(user_birthday):
-    pattern = r"^\d{4}-\d{2}-\d{2}$"
-    match = re.fullmatch(pattern, user_birthday)
+def get_minutes_diff(date):
+    pattern = r"^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$"
+    match = re.fullmatch(pattern, date)
     if not match:
-        sys.exit()
-    year, month, day = user_birthday.split("-")
-    date_list = [
-        convert_to_int(year, "year"),
-        convert_to_int(month, "month"),
-        convert_to_int(day, "day"),
-    ]
-    date1 = date.fromtimestamp(date_list[0]-date_list[1]-date_list[2])
-    date2 = date.today()
-    diff_in_minutes = (date2 - date1).min
-    return 24 * 60 * diff_in_minutes
+        sys.exit("Invalid format")
+    date_from_user = datetime(
+        convert_to_int(match.group("year")), 
+        convert_to_int(match.group("month")), 
+        convert_to_int(match.group("day"))
+        )
+    date_today = datetime.today()
+    diff_in_days = int((date_today - date_from_user).days)
+    return 24 * 60 * diff_in_days
 
+
+def time_minutes_in_words(minutes):
+        num_words = inflect.engine()
+        return num_words.number_to_words(abs(minutes))
 
 
 def main():
     user_birthday = input("Date of Birth: ").strip()
     tota_minutes = get_minutes_diff(user_birthday)
+    print(time_minutes_in_words(tota_minutes))
 
 
 if __name__ == "__main__":
