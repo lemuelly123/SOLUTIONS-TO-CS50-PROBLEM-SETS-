@@ -6,7 +6,7 @@ import re, sys, inflect
 from datetime import datetime
 
 
-def get_minutes_diff(date):
+def get_days_diff(date):
     pattern = r"^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$"
     match = re.fullmatch(pattern, date)
     if not match:
@@ -29,7 +29,7 @@ def time_minutes_in_words(minutes):
 
 def main():
     user_birthday = input("Date of Birth: ").strip()
-    tota_minutes = get_minutes_diff(user_birthday)
+    tota_minutes = get_days_diff(user_birthday)
     print(time_minutes_in_words(tota_minutes))
 
 
