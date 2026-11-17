@@ -2,7 +2,7 @@ import pytest
 from jar import Jar
 
 
-def test_capacity():
+def test_valid_jar_capacity():
     jar1 = Jar()
     jar2 = Jar(10)
     assert jar1.capacity == 12
