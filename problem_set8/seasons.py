@@ -6,15 +6,12 @@ import re, sys, inflect
 from datetime import datetime
 
 
-def convert_to_int(value):
-    value = value.strip()
-    return int(value)
-
 def get_minutes_diff(date):
     pattern = r"^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$"
     match = re.fullmatch(pattern, date)
     if not match:
         sys.exit("Invalid format")
+    convert_to_int = lambda num:int(num)
     date_from_user = datetime(
         convert_to_int(match.group("year")), 
         convert_to_int(match.group("month")), 
@@ -27,7 +24,7 @@ def get_minutes_diff(date):
 
 def time_minutes_in_words(minutes):
         num_words = inflect.engine()
-        return num_words.number_to_words(abs(minutes))
+        return f"{str(num_words.number_to_words(abs(minutes))).capitalize()} minutes"
 
 
 def main():
