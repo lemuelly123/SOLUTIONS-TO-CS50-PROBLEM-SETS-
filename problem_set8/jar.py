@@ -22,6 +22,16 @@ class Jar:
         if new_capacity < 0:
             raise ValueError(f"Capacity cannot be negative")
         self._capacity = new_capacity
+    @property
+    def size(self):
+        return self.__size
+    @size.setter
+    def size(self, new_size):
+        if not isinstance(new_size, int):
+            raise ValueError("Size must be a whole number")
+        if new_size < 0:
+            raise ValueError("Size cannot be negative")
+        self.__size = new_size
     
     def __str__(self):
         if self.size == 0:

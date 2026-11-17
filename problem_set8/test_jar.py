@@ -65,6 +65,7 @@ def test_jar_size():
     assert jar2.size == 2
     assert jar3.size == 0
 
+
 def test_str_jar():
     jar1 = Jar()
     jar2 = Jar(10)
