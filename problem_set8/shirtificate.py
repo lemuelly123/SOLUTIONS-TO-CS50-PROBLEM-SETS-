@@ -10,13 +10,6 @@ def valid_param(param, value):
         raise ValueError(f"{param} cannot be empty")
     return param.strip()
 
-
-def find_x_positions():
-    points_x_axis = [i for i in range(10, 120, 10)]
-    points_y_axis = [i for i in range(10, 120, 10)]
-    ...
-
-
 #image checker
 def check_if_image_exist(img_name):
     img_name = img_name.strip().lower()
