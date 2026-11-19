@@ -12,6 +12,8 @@ def valid_param(param, value):
 
 
 def find_x_positions():
+    points_x_axis = [i for i in range(10, 120, 10)]
+    points_y_axis = [i for i in range(10, 120, 10)]
     ...
 
 
@@ -34,24 +36,28 @@ class Shirtificate:
         valid_display_text = valid_param(displey_text, "Display text")
         shirt_width = 200
         self.pdf.add_page()
-        self.pdf.set_font("Helvetica", style="B", size=30, )
-        self.pdf.set_x(80)
+        self.pdf.set_font("Helvetica")
+        self.pdf.set_font_size(55)
+        self.pdf.set_x(30)
         self.pdf.cell(text=valid_display_text, align="C")
         x_position = (self.pdf.w - shirt_width) / 2
         y_position = 50
         image_filename = check_if_image_exist("shirtificate.png")
         self.pdf.image(image_filename, x_position, y=y_position, w=shirt_width)
-        self.pdf.set_y(y_position + 90)
+        self.pdf.set_y(y_position + 65)
         self.pdf.set_x(0)
+        self.pdf.set_font_size(25)
         self.pdf.set_text_color(255)
         self.pdf.cell(text=f"{self.name.title()} took CS50 course", w=self.pdf.w, align="C", h=10)
         self.pdf.output("shirtificate.pdf")
+
 
 def main():
     user_name = input("Enter your name: ")
     name = valid_param(user_name, "name")
     shirt = Shirtificate(name)
     shirt.create_pdf("CS50 Shirtificate")
+
 
 if __name__ == "__main__":
     main()
